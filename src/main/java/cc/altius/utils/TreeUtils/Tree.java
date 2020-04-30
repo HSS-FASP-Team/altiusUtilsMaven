@@ -74,7 +74,7 @@ public class Tree<T> implements Serializable {
         }
         return null;
     }
-    
+
     public Node<T> findNodeByPayloadId(int payloadId) {
         Node<T> n = this.root;
         return findNodeByPayloadId(n, payloadId);
@@ -101,64 +101,57 @@ public class Tree<T> implements Serializable {
         return this.root;
     }
 
-    public List<Node<T>> getTreeList() {
+    public List<Node<T>> getFlatList() {
         return this.flatList;
     }
 
-    public List<T> getPayloadSubList(int id) {
+    public List<T> getPayloadSubList(int id, boolean includeSelf, int level) {
         List<T> subList = new LinkedList<>();
         Node<T> n = findNode(id);
-        subList.add(n.getPayload());
-        n.getTree().forEach((child) -> {
-            getPayloadSubList(child, subList);
-        });
+        if (includeSelf) {
+            subList.add(n.getPayload());
+        }
+        if (level == -1 || level > 0) {
+            n.getTree().forEach((child) -> {
+                getPayloadSubList(child, subList, (level > 0 ? level - 1 : level));
+            });
+        }
         return subList;
     }
-    
-    public List<Node<T>> getTreeSubList(int id) {
+
+    public List<Node<T>> getTreeFullList() {
+        return getTreeSubList(1, true, -1);
+    }
+
+    public List<Node<T>> getTreeSubList(int id, boolean includeSelf, int level) {
         List<Node<T>> subList = new LinkedList<>();
         Node<T> n = findNode(id);
-        subList.add(n);
-        n.getTree().forEach((child) -> {
-            getTreeSubList(child, subList);
-        });
+        if (includeSelf) {
+            subList.add(n);
+        }
+        if (level == -1 || level > 0) {
+            n.getTree().forEach((child) -> {
+                getTreeSubList(child, subList, (level > 0 ? level - 1 : level));
+            });
+        }
         return subList;
     }
 
-    private void getPayloadSubList(Node<T> n, List<T> subList) {
+    private void getPayloadSubList(Node<T> n, List<T> subList, int level) {
         subList.add(n.getPayload());
-        n.getTree().forEach((child) -> {
-            getPayloadSubList(child, subList);
-        });
+        if (level == -1 || level > 0) {
+            n.getTree().forEach((child) -> {
+                getPayloadSubList(child, subList, (level > 0 ? level - 1 : level));
+            });
+        }
     }
-    
-    private void getTreeSubList(Node<T> n, List<Node<T>> subList) {
+
+    private void getTreeSubList(Node<T> n, List<Node<T>> subList, int level) {
         subList.add(n);
-        n.getTree().forEach((child) -> {
-            getTreeSubList(child, subList);
-        });
+        if (level == -1 || level > 0) {
+            n.getTree().forEach((child) -> {
+                getTreeSubList(child, subList, (level > 0 ? level - 1 : level));
+            });
+        }
     }
-
-//    public void printFullTree() {
-//        Node<T> n = this.root;
-//        System.out.println(pad(n.getLevel() * 4) + n.toString());
-//        n.getTree().forEach((child) -> {
-//            printSubTree(child);
-//        });
-//    }
-//
-//    public void printSubTree(Node<T> n) {
-//        System.out.println(pad(n.getLevel() * 4) + n.toString());
-//        n.getTree().forEach((child) -> {
-//            printSubTree(child);
-//        });
-//    }
-    
-
-//    public void printFlatTree() {
-//        System.out.println("Flat list");
-//        this.flatList.forEach((n) -> {
-//            System.out.println(pad(n.getLevel() * 4) + n.toString());
-//        });
-//    }
 }
