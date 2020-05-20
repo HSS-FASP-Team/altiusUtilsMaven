@@ -55,7 +55,19 @@ public class TreeTest {
         
         System.out.println("");
         System.out.println("");
-        t.getTreeSubList(4, true, -1).forEach((node) -> {
+        t.getTreeSubList(1, false, 1).forEach((node) -> {
+            System.out.println(pad(node.getLevel() * 4) + node);
+        });
+        
+        System.out.println("");
+        System.out.println("");
+        t.getTreeSubList(4, false, 1).forEach((node) -> {
+            System.out.println(pad(node.getLevel() * 4) + node);
+        });
+        
+        System.out.println("");
+        System.out.println("");
+        t.getTreeSubList(7, false, 1).forEach((node) -> {
             System.out.println(pad(node.getLevel() * 4) + node);
         });
         

@@ -20,7 +20,6 @@ public class Node<T> {
     private T payload;
     @JsonIgnore
     private List<Node<T>> tree;
-    @JsonIgnore
     private int level;
     private String sortOrder;
     private int payloadId;
