@@ -174,6 +174,22 @@ public class DateUtils {
         cal.add(Calendar.DATE, days);
         return cal.getTime();
     }
+    
+    /**
+     * Adds months to the Date object given. Months can be positive or negative.
+     *
+     * @param dt Date object that you want to add months to
+     * @param months Number of months you want to add to the Date object. Cane be
+     * positive or negative.
+     * @return Returns the new Date object after adding the months to the Date
+     * object.
+     */
+    static public Date addMonths(Date dt, int months) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        cal.add(Calendar.MONTH, months);
+        return cal.getTime();
+    }
 
     /**
      * Format a Date object into a standard format.
