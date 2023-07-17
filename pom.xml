@@ -4,7 +4,7 @@
 
     <groupId>cc.altius</groupId>
     <artifactId>altiusUtilsMaven</artifactId>
-    <version>1.38</version>
+    <version>2.01</version>
     <packaging>jar</packaging>
 
     <name>altiusUtilsMaven</name>
@@ -100,9 +100,9 @@
             <version>2.10.3</version>
         </dependency>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>10.0.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
